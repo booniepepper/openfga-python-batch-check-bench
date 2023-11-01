@@ -17,7 +17,7 @@ parser.add_argument('mode', choices=['async', 'sync'])
 parser.add_argument('-n', '--n-requests', default=5000)
 
 args = parser.parse_args()
-
+n_requests = int(args.n_requests)
 
 configuration = openfga_sdk.ClientConfiguration(
     api_host='api.us1.fga.dev',
@@ -35,26 +35,20 @@ configuration = openfga_sdk.ClientConfiguration(
 
 
 requests = []
-for _ in range(args.n_requests):
+for _ in range(n_requests):
     key = openfga_sdk.TupleKey()
     request = openfga_sdk.CheckRequest(key)
     requests.append(request)
 
 
 async def async_batch_check():
-    start = datetime.now()
     async with openfga_sdk.OpenFgaClient(configuration) as fga:
         await fga.batch_check(requests)
-    end = datetime.now()
-    print("Async elapsed seconds:", end - start)
 
 
 def sync_batch_check():
-    start = datetime.now()
     fga = openfga_sdk.sync.OpenFgaClient(configuration)
     fga.batch_check(requests)
-    end = datetime.now()
-    print("Sync elapsed seconds:", end - start)
 
 
 def main():
