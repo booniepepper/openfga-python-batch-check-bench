@@ -20,17 +20,9 @@ args = parser.parse_args()
 n_requests = int(args.n_requests)
 
 configuration = openfga_sdk.ClientConfiguration(
-    api_host='api.us1.fga.dev',
-    store_id='01H8M76TB3P7EWC6T298WTJX2D',
-    credentials=openfga_sdk.credentials.Credentials(
-        method='client_credentials',
-        configuration=openfga_sdk.credentials.CredentialConfiguration(
-            api_issuer='fga.us.auth0.com',
-            api_audience='https://api.us1.fga.dev/',
-            client_id='P99BJ2XKlB1N8NdIPzN5Ew8mBegEz0FJ',
-            client_secret=os.getenv('OPENFGA_CLIENT_SECRET')
-        )
-    )
+    api_scheme='http',
+    api_host='localhost:8080',
+    store_id='01HE6GBVRANZNBPD49FES6X9YC',
 )
 
 
