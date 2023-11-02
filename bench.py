@@ -2,10 +2,10 @@
 
 import argparse
 import asyncio
-from datetime import datetime
 import openfga_sdk
 import openfga_sdk.sync
 import os
+from openfga_sdk.client.models.check_request import ClientCheckRequest
 
 
 parser = argparse.ArgumentParser(
@@ -36,8 +36,7 @@ configuration = openfga_sdk.ClientConfiguration(
 
 requests = []
 for _ in range(n_requests):
-    key = openfga_sdk.TupleKey()
-    request = openfga_sdk.CheckRequest(key)
+    request = ClientCheckRequest('user:bob', 'member', 'group:x')
     requests.append(request)
 
 
